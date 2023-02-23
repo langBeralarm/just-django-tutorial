@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    <style>
+        ul.ul-leads {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left:5px;
+            padding-right:5px;
+            list-style-type: none;
+            background-color: #F4F4F5;
+            border-radius: 25px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1>Our leads</h1>
+    <ul class="ul-leads">
+        {% for lead in leads %}
+            <li>
+                <h2>{{ lead.first_name }} {{ lead.last_name }}</h2>
+                <p>Has been phoned: {{ lead.phoned|yesno:'Yes.,No.' }}</p>
+            </li>
+        {% empty %}
+            <li>Currently, there aren't any leads.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
