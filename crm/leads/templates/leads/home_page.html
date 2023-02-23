@@ -2,4 +2,14 @@
 
 {% block content %}
     <h1>This is our home page</h1>
+    <ul>
+        {% for lead in leads %}
+            <li>
+                <h2>{{ lead.first_name }} {{ lead.last_name }}</h2>
+                <p>Has been phoned: {{ lead.phoned|yesno:'Yes.,No.' }}</p>
+            </li>
+        {% empty %}
+            <li>Currently, there aren't any leads.</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
