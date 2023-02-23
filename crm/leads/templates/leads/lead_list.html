@@ -19,8 +19,10 @@
     <ul class="ul-leads">
         {% for lead in leads %}
             <li>
-                <h2>{{ lead.first_name }} {{ lead.last_name }}</h2>
-                <p>Has been phoned: {{ lead.phoned|yesno:'Yes.,No.' }}</p>
+                <a href="{% url 'leads:lead_detail' lead.pk %}">
+                  <h2>{{ lead.first_name }} {{ lead.last_name }}</h2>
+                  <p>Has been phoned: {{ lead.phoned|yesno:'Yes.,No.' }}</p>
+                </a>
             </li>
         {% empty %}
             <li>Currently, there aren't any leads.</li>
