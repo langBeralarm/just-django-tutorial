@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import home_page
+from .views import lead_list
 
 app_name = 'leads'
 
 urlpatterns = [
-    path('', home_page, name='home_page'),
+    path('', lead_list, name='home_page'),
 ]
