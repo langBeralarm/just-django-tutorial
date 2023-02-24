@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import Agent, Lead
+from .models import Lead
 from .forms import LeadModelForm
 
 
