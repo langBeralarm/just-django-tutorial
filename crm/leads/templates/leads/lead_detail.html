@@ -4,5 +4,6 @@
     <h1>Lead-Nr. {{ lead.pk }}</h1>
     <h2>{{ lead.first_name }} {{ lead.last_name }}</h2>
     <p>Has been phoned: {{ lead.phoned|yesno:'Yes.,No.' }}</p>
+    <p>Agent: {{ lead.agent }}</p>
     </ul>
 {% endblock %}
