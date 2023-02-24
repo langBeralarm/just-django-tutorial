@@ -1,13 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.views.generic import ListView
 from .models import Lead
 from .forms import LeadModelForm
-
-
-def lead_list(request):
-    leads = Lead.objects.all()
-    return render(request, 'leads/lead_list.html', {
-        'leads': leads,
-    })
 
 
 def lead_detail(request, pk):
@@ -47,3 +41,9 @@ def lead_delete(request, pk):
     lead = get_object_or_404(Lead, pk=pk)
     lead.delete()
     return redirect('/leads')
+
+
+class LeadListView(ListView):
+    template_name = 'leads/lead_list.html'
+    queryset = Lead.objects.all()
+    context_object_name = 'leads'
