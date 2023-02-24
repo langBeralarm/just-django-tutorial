@@ -42,3 +42,8 @@ def lead_update(request, pk):
         'lead': lead,
     })
 
+
+def lead_delete(request, pk):
+    lead = get_object_or_404(Lead, pk=pk)
+    lead.delete()
+    return redirect('/leads')
