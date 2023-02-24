@@ -15,6 +15,7 @@
 {% endblock %}
 
 {% block content %}
+    <a href="{% url 'leads:lead_create' %}">Create a new lead</a>
     <h1>Our leads</h1>
     <ul class="ul-leads">
         {% for lead in leads %}
