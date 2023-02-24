@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import Agent, Lead
-from .forms import LeadForm
+from .models import Lead
+from .forms import LeadModelForm
 
 
 def lead_list(request):
@@ -19,17 +19,11 @@ def lead_detail(request, pk):
 
 def lead_create(request):
     if request.method == 'POST':
-        form = LeadForm(request.POST)
+        form = LeadModelForm(request.POST)
         if form.is_valid():
-            Lead.objects.create(
-                first_name=form.data['first_name'],
-                last_name=form.data['last_name'],
-                age=form.data['age'],
-                agent=Agent.objects.all()[0],
-                source='YouTube',
-            )
+            form.save()
             return redirect('/leads')
-    form = LeadForm()
+    form = LeadModelForm()
     return render(request, 'leads/lead_create.html', {
         'form': form,
     })

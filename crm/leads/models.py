@@ -21,7 +21,7 @@ class Lead(models.Model):
     agent = models.ForeignKey('Agent', on_delete=models.CASCADE, default=None)
 
     phoned = models.BooleanField(default=False)
-    source = models.CharField(choices=SOURCE_CHOICES, max_length=100, default=None)
+    source = models.CharField(choices=SOURCE_CHOICES, max_length=100, default=None, null=True)
 
     profile_picture = models.ImageField(blank=True, null=True)
     special_files = models.FileField(blank=True, null=True)
