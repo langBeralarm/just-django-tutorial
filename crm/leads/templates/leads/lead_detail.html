@@ -6,4 +6,7 @@
     <p>Has been phoned: {{ lead.phoned|yesno:'Yes.,No.' }}</p>
     <p>Agent: {{ lead.agent }}</p>
     </ul>
+    <hr>
+    <a href="{% url 'leads:lead_update' lead.pk %}">Update</a>
+    <a href="{% url 'leads:lead_delete' lead.pk %}">Delete</a>
 {% endblock %}
