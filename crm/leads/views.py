@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render, redirect, reverse
+from django.shortcuts import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Lead
 from .forms import LeadModelForm
