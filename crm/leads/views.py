@@ -1,19 +1,7 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic import ListView, DetailView
+from django.shortcuts import get_object_or_404, render, redirect, reverse
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Lead
 from .forms import LeadModelForm
-
-
-def lead_create(request):
-    if request.method == 'POST':
-        form = LeadModelForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/leads')
-    form = LeadModelForm()
-    return render(request, 'leads/lead_create.html', {
-        'form': form,
-    })
 
 
 def lead_update(request, pk):
@@ -46,3 +34,11 @@ class LeadDetailView(DetailView):
     template_name = 'leads/lead_detail.html'
     queryset = Lead.objects.all()
     context_object_name = 'lead'
+
+
+class LeadCreateView(CreateView):
+    template_name = 'leads/lead_create.html'
+    form_class = LeadModelForm
+
+    def get_success_url(self):
+        return reverse('leads:lead_list')
