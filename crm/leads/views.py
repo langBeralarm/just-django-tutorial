@@ -1,21 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect, reverse
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Lead
 from .forms import LeadModelForm
-
-
-def lead_update(request, pk):
-    lead = get_object_or_404(Lead, pk=pk)
-    form = LeadModelForm(instance=lead)
-    if request.method == 'POST':
-        form = LeadModelForm(request.POST, instance=lead)
-        if form.is_valid():
-            form.save()
-            return redirect('/leads')
-    return render(request, 'leads/lead_update.html', {
-        'form': form,
-        'lead': lead,
-    })
 
 
 def lead_delete(request, pk):
@@ -38,6 +24,15 @@ class LeadDetailView(DetailView):
 
 class LeadCreateView(CreateView):
     template_name = 'leads/lead_create.html'
+    form_class = LeadModelForm
+
+    def get_success_url(self):
+        return reverse('leads:lead_list')
+
+
+class LeadUpdateView(UpdateView):
+    template_name = 'leads/lead_update.html'
+    queryset = Lead.objects.all()
     form_class = LeadModelForm
 
     def get_success_url(self):
