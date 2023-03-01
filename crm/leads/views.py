@@ -7,8 +7,17 @@ from django.views.generic import (
     DeleteView,
 )
 from django.core.mail import send_mail
+from django.contrib.auth.forms import UserCreationForm
 from .models import Lead
 from .forms import LeadModelForm
+
+
+class SignUpView(CreateView):
+    template_name = "registration/signup.html"
+    form_class = UserCreationForm
+
+    def get_success_url(self):
+        return reverse("login")
 
 
 class LeadListView(ListView):
