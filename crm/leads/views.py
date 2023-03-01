@@ -58,7 +58,7 @@ class LeadUpdateView(LoginRequiredMixin, UpdateView):
         return reverse("leads:lead_list")
 
 
-class LeadDeleteView(DeleteView):
+class LeadDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "leads/lead_delete.html"
     queryset = Lead.objects.all()
 
