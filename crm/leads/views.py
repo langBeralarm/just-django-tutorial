@@ -7,14 +7,13 @@ from django.views.generic import (
     DeleteView,
 )
 from django.core.mail import send_mail
-from django.contrib.auth.forms import UserCreationForm
 from .models import Lead
-from .forms import LeadModelForm
+from .forms import LeadModelForm, CustomUserCreationForm
 
 
 class SignUpView(CreateView):
     template_name = "registration/signup.html"
-    form_class = UserCreationForm
+    form_class = CustomUserCreationForm
 
     def get_success_url(self):
         return reverse("login")
