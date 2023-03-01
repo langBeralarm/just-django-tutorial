@@ -4,15 +4,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('leads', '0004_auto_20230223_1413'),
+        ("leads", "0004_auto_20230223_1413"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='lead',
-            name='source',
-            field=models.CharField(choices=[('YouTube', 'YouTube'), ('Google', 'Google'), ('Newsletter', 'Newsletter')], default=None, max_length=100, null=True),
+            model_name="lead",
+            name="source",
+            field=models.CharField(
+                choices=[
+                    ("YouTube", "YouTube"),
+                    ("Google", "Google"),
+                    ("Newsletter", "Newsletter"),
+                ],
+                default=None,
+                max_length=100,
+                null=True,
+            ),
         ),
     ]

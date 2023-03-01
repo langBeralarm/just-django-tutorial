@@ -5,43 +5,62 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('leads', '0001_initial'),
+        ("leads", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Agent',
+            name="Agent",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=50)),
-                ('last_name', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("first_name", models.CharField(max_length=50)),
+                ("last_name", models.CharField(max_length=50)),
             ],
         ),
         migrations.AddField(
-            model_name='lead',
-            name='phoned',
+            model_name="lead",
+            name="phoned",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='lead',
-            name='profile_picture',
-            field=models.ImageField(blank=True, null=True, upload_to=''),
+            model_name="lead",
+            name="profile_picture",
+            field=models.ImageField(blank=True, null=True, upload_to=""),
         ),
         migrations.AddField(
-            model_name='lead',
-            name='source',
-            field=models.CharField(choices=[('YouTube', 'YouTube'), ('Google', 'Google'), ('Newsletter', 'Newsletter')], default=None, max_length=100),
+            model_name="lead",
+            name="source",
+            field=models.CharField(
+                choices=[
+                    ("YouTube", "YouTube"),
+                    ("Google", "Google"),
+                    ("Newsletter", "Newsletter"),
+                ],
+                default=None,
+                max_length=100,
+            ),
         ),
         migrations.AddField(
-            model_name='lead',
-            name='special_files',
-            field=models.FileField(blank=True, null=True, upload_to=''),
+            model_name="lead",
+            name="special_files",
+            field=models.FileField(blank=True, null=True, upload_to=""),
         ),
         migrations.AddField(
-            model_name='lead',
-            name='agent',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, to='leads.agent'),
+            model_name="lead",
+            name="agent",
+            field=models.ForeignKey(
+                default=None,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="leads.agent",
+            ),
         ),
     ]
