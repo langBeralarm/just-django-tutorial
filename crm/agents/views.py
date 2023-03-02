@@ -7,3 +7,9 @@ class AgentListView(LoginRequiredMixin, generic.ListView):
     template_name = "agents/agent_list.html"
     queryset = Agent.objects.all()
     context_object_name = "agents"
+
+
+class AgentDetailView(LoginRequiredMixin, generic.DetailView):
+    template_name = "agents/agent_detail.html"
+    queryset = Agent.objects.all()
+    context_object_name = "agent"
