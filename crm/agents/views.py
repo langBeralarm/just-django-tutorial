@@ -1,6 +1,6 @@
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import reverse
+from django.shortcuts import reverse, get_object_or_404
 from leads.models import Agent, UserProfile
 from .forms import AgentModelForm
 
@@ -11,8 +11,8 @@ class AgentListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         current_user = self.request.user
-        current_userprofile = UserProfile.objects.get(user=current_user)
-        return Agent.objects.filter(organisation=current_userprofile)
+        current_userprofile = get_object_or_404(UserProfile, user=current_user)
+        return get_object_or_404(Agent, organisation=current_userprofile)
 
 
 class AgentDetailView(LoginRequiredMixin, generic.DetailView):
@@ -21,8 +21,8 @@ class AgentDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_queryset(self):
         current_user = self.request.user
-        current_userprofile = UserProfile.objects.get(user=current_user)
-        return Agent.objects.filter(organisation=current_userprofile)
+        current_userprofile = get_object_or_404(UserProfile, user=current_user)
+        return get_object_or_404(Agent, organisation=current_userprofile)
 
 
 class AgentCreateView(LoginRequiredMixin, generic.CreateView):
@@ -47,8 +47,8 @@ class AgentDeleteView(LoginRequiredMixin, generic.DeleteView):
 
     def get_queryset(self):
         current_user = self.request.user
-        current_userprofile = UserProfile.objects.get(user=current_user)
-        return Agent.objects.filter(organisation=current_userprofile)
+        current_userprofile = get_object_or_404(UserProfile, user=current_user)
+        return get_object_or_404(Agent, organisation=current_userprofile)
 
 
 class AgentUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -60,5 +60,5 @@ class AgentUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_queryset(self):
         current_user = self.request.user
-        current_userprofile = UserProfile.objects.get(user=current_user)
-        return Agent.objects.filter(organisation=current_userprofile)
+        current_userprofile = get_object_or_404(UserProfile, user=current_user)
+        return get_object_or_404(Agent, organisation=current_userprofile)
