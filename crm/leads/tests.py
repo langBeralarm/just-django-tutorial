@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.shortcuts import reverse
+from .models import User, UserProfile
 
 
 class LeadListTest(TestCase):
@@ -38,3 +39,26 @@ class LeadDeleteTest(TestCase):
             )
         )
         self.assertEqual(response.status_code, 302)
+
+
+class UserProfileTest(TestCase):
+    def test_user_post_save_signal(self):
+        users = User.objects.all().count()
+        self.assertEqual(users, 0)
+        user_profiles = UserProfile.objects.all().count()
+        self.assertEqual(user_profiles, 0)
+
+        User.objects.create(
+            username="Tester",
+            first_name="John",
+            last_name="Doe",
+            email="test@tester.test",
+        )
+
+        users = User.objects.all().count()
+        self.assertEqual(users, 1)
+        user_profiles = UserProfile.objects.all().count()
+        self.assertEqual(user_profiles, 1)
+
+        User.objects.all().delete()
+        UserProfile.objects.all().delete()
