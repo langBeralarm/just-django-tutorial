@@ -8,28 +8,36 @@
             </svg>
             <span class="ml-3 text-xl">CRM</span>
         </a>
-        {% if not request.user.is_authenticated %}
         <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+
+            {% if not request.user.is_authenticated %}
             <a class="mr-5 hover:text-gray-900" href="{% url 'leads:signup' %}">Sign Up</a>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'leads:lead_list' %}"
+               class="inline-flex mx-1.5 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Leads
+            </a>
+            <a href="{% url 'agents:agent_list' %}"
+               class="inline-flex mx-1.5 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Agents
+            </a>
+            <span class="ml-auto text-gray-900">You are logged in: {{ request.user.username }}</span>
+            <a href="{% url 'logout' %}"
+               class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Log
+                out
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                     class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                </svg>
+            </a>
+            {% else %}
+            <a href="{% url 'login' %}"
+               class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Login
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                     class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                </svg>
+            </a>
+            {% endif %}
         </nav>
-        {% endif %}
-        {% if request.user.is_authenticated %}
-        <span class="ml-auto text-gray-900">You are logged in: {{ request.user.username }}</span>
-        <a href="{% url 'logout' %}"
-           class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Log out
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                 class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-            </svg>
-        </a>
-        {% else %}
-        <a href="{% url 'login' %}"
-           class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Login
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                 class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-            </svg>
-        </a>
-        {% endif %}
     </div>
 </header>
