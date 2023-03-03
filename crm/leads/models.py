@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 
 
@@ -40,8 +40,9 @@ class Agent(models.Model):
         return self.user.get_full_name()
 
 
-class User(User):
-    pass
+class User(AbstractUser):
+    is_organisor = models.BooleanField(default=True)
+    is_agent = models.BooleanField(default=False)
 
 
 class UserProfile(models.Model):
