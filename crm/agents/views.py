@@ -24,9 +24,7 @@ class AgentDetailView(OrganisorAndLoginRequiredMixin, generic.DetailView):
     context_object_name = "agent"
 
     def get_queryset(self):
-        current_user = self.request.user
-        current_userprofile = get_object_or_404(UserProfile, user=current_user)
-        return get_list_or_404(Agent, organisation=current_userprofile)
+        return Agent.objects.filter(organisation=self.request.user.userprofile)
 
 
 class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
