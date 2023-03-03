@@ -1,5 +1,4 @@
 from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import reverse, get_object_or_404
 from leads.models import Agent, UserProfile
 from .forms import AgentModelForm
