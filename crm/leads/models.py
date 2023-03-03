@@ -21,6 +21,7 @@ class Lead(models.Model):
     agent = models.ForeignKey(
         "Agent", null=True, blank=True, on_delete=models.SET_NULL, default=None
     )
+    organisation = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
 
     phoned = models.BooleanField(default=False)
     source = models.CharField(
