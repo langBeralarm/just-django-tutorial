@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 
 
@@ -18,7 +18,10 @@ class Lead(models.Model):
 
     # If the to argument is a string django knows that the Model being referenced is in the same file
     # otherwise the to arguments Model would need be above the current Model
-    agent = models.ForeignKey("Agent", on_delete=models.CASCADE, default=None)
+    agent = models.ForeignKey(
+        "Agent", null=True, blank=True, on_delete=models.SET_NULL, default=None
+    )
+    organisation = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
 
     phoned = models.BooleanField(default=False)
     source = models.CharField(
@@ -40,8 +43,9 @@ class Agent(models.Model):
         return self.user.get_full_name()
 
 
-class User(User):
-    pass
+class User(AbstractUser):
+    is_organisor = models.BooleanField(default=True)
+    is_agent = models.BooleanField(default=False)
 
 
 class UserProfile(models.Model):
