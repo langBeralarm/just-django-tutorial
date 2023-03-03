@@ -1,5 +1,5 @@
 from django.views import generic
-from django.shortcuts import reverse, get_object_or_404
+from django.shortcuts import reverse, get_list_or_404, get_object_or_404
 from leads.models import Agent, UserProfile
 from .forms import AgentModelForm
 from .mixins import OrganisorAndLoginRequiredMixin
@@ -12,7 +12,7 @@ class AgentListView(OrganisorAndLoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         current_user = self.request.user
         current_userprofile = get_object_or_404(UserProfile, user=current_user)
-        return get_object_or_404(Agent, organisation=current_userprofile)
+        return get_list_or_404(Agent, organisation=current_userprofile)
 
 
 class AgentDetailView(OrganisorAndLoginRequiredMixin, generic.DetailView):
@@ -22,7 +22,7 @@ class AgentDetailView(OrganisorAndLoginRequiredMixin, generic.DetailView):
     def get_queryset(self):
         current_user = self.request.user
         current_userprofile = get_object_or_404(UserProfile, user=current_user)
-        return get_object_or_404(Agent, organisation=current_userprofile)
+        return get_list_or_404(Agent, organisation=current_userprofile)
 
 
 class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
@@ -48,7 +48,7 @@ class AgentDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
     def get_queryset(self):
         current_user = self.request.user
         current_userprofile = get_object_or_404(UserProfile, user=current_user)
-        return get_object_or_404(Agent, organisation=current_userprofile)
+        return get_list_or_404(Agent, organisation=current_userprofile)
 
 
 class AgentUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
@@ -61,4 +61,4 @@ class AgentUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
     def get_queryset(self):
         current_user = self.request.user
         current_userprofile = get_object_or_404(UserProfile, user=current_user)
-        return get_object_or_404(Agent, organisation=current_userprofile)
+        return get_list_or_404(Agent, organisation=current_userprofile)
