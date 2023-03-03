@@ -1,8 +1,12 @@
 from django.views import generic
 from django.shortcuts import reverse, get_list_or_404, get_object_or_404
+from django.core.mail import send_mail
+from django.contrib.auth import get_user_model
 from leads.models import Agent, UserProfile
 from .forms import AgentModelForm
 from .mixins import OrganisorAndLoginRequiredMixin
+
+User = get_user_model()
 
 
 class AgentListView(OrganisorAndLoginRequiredMixin, generic.ListView):
@@ -33,10 +37,22 @@ class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
         return reverse("agents:agent_list")
 
     def form_valid(self, form):
-        agent = form.save(commit=False)
-        agent.organisation = self.request.user
-        agent.save()
-        super(AgentModelForm, self).form_valid(form)
+        user = form.save(commit=False)
+        user.is_agent = True
+        user.is_organisor = False
+        password = User.objects.make_random_password()
+        user.set_password(password)
+        user.save()
+        Agent.objects.create(
+            user=user, organisation=self.request.user.userprofile
+        )
+        send_mail(
+            subject="You are invited to be an agent.",
+            message="You were added as an agent. Please login to start working.",
+            from_email="test@test.com",
+            recipient_list=[user.email],
+        )
+        return super(AgentCreateView, self).form_valid(form)
 
 
 class AgentDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
