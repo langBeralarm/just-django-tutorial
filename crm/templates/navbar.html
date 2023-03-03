@@ -12,14 +12,17 @@
 
             {% if not request.user.is_authenticated %}
             <a class="mr-5 hover:text-gray-900" href="{% url 'leads:signup' %}">Sign Up</a>
+            {% else %}
+                <a href="{% url 'leads:lead_list' %}"
+                   class="inline-flex mx-1.5 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Leads
+                </a>
+                {% if request.user.is_organisor %}
+                    <a href="{% url 'agents:agent_list' %}"
+                       class="inline-flex mx-1.5 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Agents
+                    </a>
+                {% endif %}
             {% endif %}
             {% if request.user.is_authenticated %}
-            <a href="{% url 'leads:lead_list' %}"
-               class="inline-flex mx-1.5 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Leads
-            </a>
-            <a href="{% url 'agents:agent_list' %}"
-               class="inline-flex mx-1.5 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Agents
-            </a>
             <span class="ml-auto text-gray-900">You are logged in: {{ request.user.username }}</span>
             <a href="{% url 'logout' %}"
                class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Log
