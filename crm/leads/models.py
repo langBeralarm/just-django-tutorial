@@ -18,7 +18,9 @@ class Lead(models.Model):
 
     # If the to argument is a string django knows that the Model being referenced is in the same file
     # otherwise the to arguments Model would need be above the current Model
-    agent = models.ForeignKey("Agent", on_delete=models.CASCADE, default=None)
+    agent = models.ForeignKey(
+        "Agent", null=True, blank=True, on_delete=models.SET_NULL, default=None
+    )
 
     phoned = models.BooleanField(default=False)
     source = models.CharField(
